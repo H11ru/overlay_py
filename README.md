@@ -21,6 +21,6 @@
 - The clock shows HH:MM:SS time and the date in DD/MM/YYYY format.
   - If you are american and want MM/DD/YYYY, nope. hack the app. go ahead
 - The notepad allows you to type text notes. It saves automatically, even if the overlays app crashes. It will be stored in the current directory.
-- This is why its important to be in the correct folder, as otherwise the notes files might not be found and could be saved in random folders.
-- The calculator is a simple calculator that does python evaluation. It can do basic arithmetic and more complex expressions.
+- This is why its important to be in the correct folder, as otherwise the notes files might not be found or could be saved in random folders.
+- The calculator is a simple calculator that does python eval. It can do basic arithmetic and more complex expressions. sin, cos, and other math functions are available.
 - The overlays are always on top, so you can use them while doing other things.
