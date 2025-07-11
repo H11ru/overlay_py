@@ -179,7 +179,8 @@ try:
                 if calc_active:
                     if event.key == pygame.K_RETURN:
                         try:
-                            calc_result = str(eval(calc_input))
+                            # Add useful tools to the calculator
+                            calc_result = str(eval(calc_input, {"sin": __import__("math").sin, "cos": __import__("math").cos, "tan": __import__("math").tan, "sqrt": __import__("math").sqrt, "log": __import__("math").log, "exp": __import__("math").exp})) # Those might be useful to have
                         except Exception as e:
                             calc_result = "Error"
                     elif event.key == pygame.K_BACKSPACE:
@@ -261,6 +262,9 @@ try:
 
         if mouse_pressed[0] and not started_clicking:
             started_clicking = True
+            # Also, if mouse is on the X button, everything closes
+            if menu_overlay['rect'].collidepoint(mx, my):
+                pygame.event.post(pygame.event.Event(pygame.QUIT))
             # Check if clicking on a overlay. if so, start drag it
             # also, check the toggle buttons first up
             # Toggle buttons
@@ -323,6 +327,8 @@ try:
             btn.x = menu_overlay['rect'].x + 20
             btn.y = menu_overlay['rect'].y + 60 + i * 50
 
+        # 
+
         screen.fill(TRANSPARENT)
         # Draw overlays in z-order
         for idx in z_order:
@@ -357,6 +363,11 @@ try:
                         pygame.draw.rect(screen, (180, 180, 180), btn)
                         label = small_font.render(f"Toggle {toggle_overlays[i]['label']} Overlay", True, (0, 0, 0))
                         screen.blit(label, (btn.x + 10, btn.y + 8))
+                    # Draw exit button in top riight
+                    exit_btn = pygame.Rect(overlay['rect'].x + overlay['rect'].width - 30, overlay['rect'].y + 10, 20, 20)
+                    pygame.draw.rect(screen, (255, 0, 0), exit_btn)
+                    pygame.draw.line(screen, (0, 0, 0), (exit_btn.x + 5, exit_btn.y + 5), (exit_btn.x + exit_btn.width - 5, exit_btn.y + exit_btn.height - 5), 2)
+                    pygame.draw.line(screen, (0, 0, 0), (exit_btn.x + exit_btn.width - 5, exit_btn.y + 5), (exit_btn.x + 5, exit_btn.y + exit_btn.height - 5), 2)
                     # Draw border
                     pygame.draw.rect(screen, (0, 0, 0), overlay['rect'], 2)
                 case "Clock":
@@ -509,7 +520,7 @@ try:
         pygame.display.update()
         clock.tick(60)
 except Exception as e:
-    with open("noooooooo.txt", "w") as f:
+    with open("crash.txt", "w") as f:
         f.write(f"Error: {e.__class__.__name__}: {e}\n")
 
 finally:
