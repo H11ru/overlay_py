@@ -263,7 +263,9 @@ try:
         if mouse_pressed[0] and not started_clicking:
             started_clicking = True
             # Also, if mouse is on the X button, everything closes
-            if menu_overlay['rect'].collidepoint(mx, my):
+            #if menu_overlay['rect'].collidepoint(mx, my): # X BUUTTON ISNT THE SIZE OF THEM ENU
+            exit_btn = pygame.Rect(menu_overlay['rect'].x + menu_overlay['rect'].width - 30, menu_overlay['rect'].y + 10, 20, 20)
+            if exit_btn.collidepoint(mx, my):   
                 pygame.event.post(pygame.event.Event(pygame.QUIT))
             # Check if clicking on a overlay. if so, start drag it
             # also, check the toggle buttons first up
